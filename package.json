@@ -1,0 +1,33 @@
+{
+  "name": "intent-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server",
+    "seed": "node script/seed.js",
+    "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/register": "^7.7.0",
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mocha": "^6.2.2",
+    "mongodb": "^3.3.3",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.4",
+    "path": "^0.12.7",
+    "pg": "^7.12.1",
+    "sequelize": "^5.21.2",
+    "supertest": "^4.0.2"
+  }
+}
