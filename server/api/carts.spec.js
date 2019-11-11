@@ -44,5 +44,25 @@ describe("Cart routes", () => {
       expect(res5.body).to.be.an("object");
       expect(res5.body.total).to.be.equal(15.4);
     });
+    it("POST /api/carts", async () => {
+      const newCart = await request(app)
+        .post("/api/carts/")
+        .send({ contents: "AAABBB", sessionId: "goofball" })
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200);
+      expect(newCart.body.sessionCart.contents).to.be.equal("AAABBB");
+      it("PUT /api/carts/:id", async () => {
+        const newCart = await request(app)
+          .put("/api/carts/6")
+          .send({ contents: "DDDD", sessionId: "newSession" })
+          .set("Accept", "application/json")
+          .expect("Content-Type", /json/)
+          .expect(200);
+        expect(newCart.body.sessionCart.contents).to.be.equal("DDDD");
+        expect(newCart.body.sessionCart.sessionId).to.be.equal("newSession");
+        expect(newCart.body.total).to.be.equal(0.6);
+      });
+    });
   }); // end describe('/api/carts')
 }); // end describe('Cart routes')

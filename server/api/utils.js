@@ -8,7 +8,6 @@ const splitAndHashCart = contents => {
     ac[cur]++;
     return ac;
   }, {});
-  console.log(bill);
   return bill;
 };
 

@@ -5,8 +5,8 @@ module.exports = router;
 
 router.post("/", async (req, res, next) => {
   try {
-    const { cart } = req.body;
-    cart = cart
+    let { contents, sessionId } = req.body;
+    contents = contents
       .toUpperCase()
       .split("")
       .filter(letter => {
@@ -15,15 +15,13 @@ router.post("/", async (req, res, next) => {
         );
       })
       .join("");
-
-    const sessionId = req.sessionID;
     let newCart = Cart.build({
-      contents: cart,
-      key: sessionId
+      contents: contents,
+      sessionId: sessionId
     });
-    let bill = splitAndHashCart(cart);
-    let total = calculateCartTotal(bill);
     sessionCart = await newCart.save();
+    let bill = splitAndHashCart(sessionCart.contents);
+    let total = calculateCartTotal(bill);
     res.send({ sessionCart, total: total });
   } catch (err) {
     next(err);
@@ -32,10 +30,13 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const { cart } = req.body;
+    const cart = req.body;
     let sessionCart = await Cart.findByPk(req.params.id);
-    sessionCart = await sessionCart.update({ contents: cart });
-    let bill = splitAndHashCart(cart);
+    let updatedCart = await sessionCart.update({
+      contents: cart.contents,
+      sessionId: cart.sessionId
+    });
+    let bill = splitAndHashCart(updatedCart.contents);
     let total = calculateCartTotal(bill);
     res.send({ sessionCart, total: total });
   } catch (err) {
@@ -50,7 +51,6 @@ router.get("/:id", async (req, res, next) => {
       let contents = sessionCart.contents;
       let bill = splitAndHashCart(contents);
       let total = calculateCartTotal(bill);
-      console.log("sending: ", total);
       res.send({ sessionCart, total: total });
     }
   } catch (err) {

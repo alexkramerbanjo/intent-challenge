@@ -46,7 +46,9 @@ const createApp = () => {
   app.use((err, req, res, next) => {
     console.error(err);
     console.error(err.stack);
-    res.status(err.status || 500).send(err.message || "Internal server error.");
+    res
+      .status(err.status || 500)
+      .send({ message: err.message } || { message: "Internal server error." });
   });
 };
 const startListening = () => {
