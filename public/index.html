@@ -4,9 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+
     <title>Intent Shopping Cart</title>
   </head>
   <body>
-    <h1>Intent Shopping Cart</h1>
+    <div class="container">
+      <div class="header">
+        <h1>Intent Shopping Cart</h1>
+      </div>
+      <div id="shopping-cart">
+        <h2 id="shopping-cart-header">
+          Shopping Cart Total:
+        </h2>
+        <div>Current Apples: <span id="A"></span></div>
+        <div>Current Bananas: <span id="B"></span></div>
+        <div>Current Cherries: <span id="C"></span></div>
+        <div>Current Durians: <span id="D"></span></div>
+      </div>
+      <div id="shopping-cart-form-container">
+        <form id="cart-form">
+          <label for="apple">Apples:</label>
+          <input type="number" min="0" value="0" name="apple" id="form-apple" />
+          <label for="banana">Bananas:</label>
+          <input
+            type="number"
+            min="0"
+            value="0"
+            name="banana"
+            id="form-banana"
+          />
+          <label for="cherry">Cherries: </label>
+          <input
+            type="number"
+            min="0"
+            value="0"
+            name="cherry"
+            id="form-cherry"
+          />
+          <label for="durian">Durians: </label>
+          <input
+            type="number"
+            min="0"
+            value="0"
+            name="durian"
+            id="form-durian"
+          />
+          <button type="button" onclick="handleSubmit()">
+            Update Cart
+          </button>
+          <button type="button" onclick="emptyCart()">Empty Cart</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

@@ -5,7 +5,8 @@ module.exports = router;
 
 router.post("/", async (req, res, next) => {
   try {
-    let { contents, sessionId } = req.body;
+    let { contents } = req.body;
+    let sessionId = req.sessionID;
     contents = contents
       .toUpperCase()
       .split("")
