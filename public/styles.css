@@ -1,7 +1,9 @@
 body {
   text-align: center;
 }
-
+.input-wrapper {
+  width: 100%;
+}
 .form-container {
   text-align: center;
 }
