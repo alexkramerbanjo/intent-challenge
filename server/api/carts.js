@@ -3,6 +3,8 @@ const { Cart } = require("../db/models");
 const { splitAndHashCart, calculateCartTotal } = require("./utils");
 module.exports = router;
 
+// PUT and POST requests contain JSON with a shopping cart string in 'contents' like {contents: 'ABCD' }
+
 router.post("/", async (req, res, next) => {
   try {
     let { contents } = req.body;

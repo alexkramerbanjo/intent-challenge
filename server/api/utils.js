@@ -1,5 +1,7 @@
 const data = require("./data");
 
+// this function takes a shopping cart string and returns an object
+// in the form of {A: 0, B: 0, C; 0, D: 0}
 const splitAndHashCart = contents => {
   let bill = contents.split("").reduce((ac, cur) => {
     if (!ac[cur]) {
@@ -10,7 +12,8 @@ const splitAndHashCart = contents => {
   }, {});
   return bill;
 };
-
+//This function takes a bill, applies the discounts to the item if possible,
+// and returns a final sum.
 const calculateCartTotal = bill => {
   let total = data.reduce((ac, cur) => {
     let cost = ac;

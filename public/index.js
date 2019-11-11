@@ -11,13 +11,15 @@ async function handleSubmit(e) {
   const cherries = form.cherry.value;
   const durian = form.durian.value;
   let newCart = "";
+  let cartId = localStorage.getItem("cart-id");
   if (!newCart) newCart = "";
   const fruit = [["A", apples], ["B", bananas], ["C", cherries], ["D", durian]];
   fruit.forEach(fruit => {
     let number = parseInt(fruit[1]);
     newCart += fruit[0].repeat(number);
   });
-  if (!cart) {
+  if (!cartId) {
+    // POST if no stored cartId
     try {
       const data = await sendData("POST", "/api/carts/", { contents: newCart });
       let resp = JSON.stringify(data); // JSON-string from `response.json()` call
@@ -26,9 +28,9 @@ async function handleSubmit(e) {
       console.error(error);
     }
   } else {
+    // PUT otherwise
     try {
-      const id = window.localStorage.getItem("cart-id");
-      const data = await sendData("PUT", `/api/carts/${id}/`, {
+      const data = await sendData("PUT", `/api/carts/${cartId}/`, {
         contents: newCart
       });
       let resp = JSON.stringify(data);
@@ -40,17 +42,15 @@ async function handleSubmit(e) {
 }
 
 async function sendData(method = "POST", url = "", data = {}) {
-  // Default options are marked with *
   const response = await fetch(url, {
-    method: method, // *GET, POST, PUT, DELETE, etc.
+    method: method,
     headers: {
       "Content-Type": "application/json"
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
+    body: JSON.stringify(data)
   });
   let res = await response.json();
-  return res; // parses JSON response into native JavaScript objects
+  return res;
 }
 
 function handleResp(resp) {
